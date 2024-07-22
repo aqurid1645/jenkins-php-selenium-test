@@ -6,8 +6,10 @@ pipeline {
 				stage('Deploy') {
 					agent any
 					steps {
+						sh "chmod +x -R ${env.WORKSPACE}"
 						sh './jenkins/scripts/deploy.sh'
 						input message: 'Finished using the web site? (Click "Proceed" to continue)'
+						sh "chmod +x -R ${env.WORKSPACE}"
 						sh './jenkins/scripts/kill.sh'
 					}
 				}
